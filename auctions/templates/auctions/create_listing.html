@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Create Listing{% endblock %}
+
+{% block body %}
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}" role="alert" style="display: inline-block; margin-left: 32px;">
+            <ul class="messages" style="margin: 0; padding-left: 20px;">
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+  {% endif %}
+
+  <h2>Create New Listing</h2>
+  <form action="{% url 'create_listing' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="starting_bid">Starting Bid</label>
+      <input type="number" class="form-control" id="starting_bid" name="starting_bid" required>
+    </div>
+    <div class="form-group">
+      <label for="image_url">Image URL</label>
+      <input type="url" class="form-control" id="image_url" name="image_url">
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select name="category" id="category">
+          {% for category in categories %}
+          <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Listing</button>
+  </form>
+{% endblock %}

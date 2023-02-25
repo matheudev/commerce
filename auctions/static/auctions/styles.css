@@ -1,0 +1,8 @@
+body {
+    padding: 10px;
+}
+
+#header {
+    display: flex;
+    flex-direction: column;
+}
